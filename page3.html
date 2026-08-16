@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خشتەی هەفتانەی پۆلەکان - ئامادەیی بەدرخانی کوڕان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(15, 30, 40, 0.75), rgba(10, 20, 30, 0.85)), url('school.jpg');
+            background-size: center;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            color: white;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 25px;
+            border-radius: 16px;
+            max-width: 700px;
+            margin: 10px auto;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.25);
+            color: #38bdf8;
+        }
+
+        .main-container {
+            max-width: 900px;
+            width: 100%;
+            margin: auto;
+            padding: 20px 0;
+        }
+
+        .glass-card {
+            background: rgba(20, 50, 65, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 35px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #38bdf8;
+            text-align: center;
+        }
+
+        .admin-box {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-box h3 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .admin-box select {
+            width: 100%;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .admin-box select option {
+            background: #0f172a;
+            color: white;
+        }
+
+        .day-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .day-group {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .day-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #38bdf8;
+            margin-bottom: 5px;
+        }
+        .day-group textarea {
+            width: 100%;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 13px;
+            height: 75px;
+            resize: vertical;
+            outline: none;
+        }
+
+        .day-group textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        .add-btn {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            width: 100%;
+            font-size: 15px;
+        }
+
+        .add-btn:hover {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        /* نیشاندانی خشتە */
+        .schedule-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-right: 4px solid #38bdf8;
+            position: relative;
+        }
+
+        .schedule-tag {
+            display: inline-block;
+            background: #0ea5e9;
+            color: white;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .day-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .day-item h4 {
+            font-size: 13px;
+            color: #38bdf8;
+            margin-bottom: 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 3px;
+        }
+
+        .day-item p {
+            font-size: 13px;
+            color: #e2e8f0;
+            white-space: pre-line;
+        }
+
+        .holiday-badge {
+            color: #f87171 !important;
+            font-weight: bold;
+        }
+
+        .delete-btn {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: rgba(239, 68, 68, 0.8);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="page1.html">سەرەکی</a>
+        <a href="page2.html">ئاگاداری و خشتەکان</a>
+        <a href="page3.html" class="active">خشتەی ڕۆژانە</a>
+    </nav>
+
+    <div class="main-container">
+        <div class="glass-card">
+            <h1>خشتەی هەفتانەی پۆلەکان</h1>
+            
+            <!-- بەشی زیادکردنی خشتە بە شێوازی ئازاد -->
+            <div class="admin-box">
+                <h3>➕ دانانی خشتەی هەفتانە (بە ژمارەی وانی دڵخوازی خۆت)</h3>
+                
+                <div class="form-row">
+                    <select id="gradeSelect">
+                        <option value="پۆلی 10 (زانستی)">پۆلی 10 زانستی</option>
+                        <option value="پۆلی 10 (وێژەیی)">پۆلی 10 وێژەیی</option>
+                        <option value="پۆلی 11 (زانستی)">پۆلی 11 زانستی</option>
+                        <option value="پۆلی 11 (وێژەیی)">پۆلی 11 وێژەیی</option>
+                        <option value="پۆلی 12 (زانستی)">پۆلی 12 زانستی</option>
+                        <option value="پۆلی 12 (وێژەیی)">پۆلی 12 وێژەیی</option>
+                    </select>
+                    <select id="sectionSelect">
+                        <option value="لقی أ">لقی أ</option>
+                        <option value="لقی ب">لقی ب</option>
+                        <option value="لقی ج">لقی ج</option>
+                        <option value="لقی د">لقی د</option>
+                    </select>
+                </div>
+
+                <!-- خانەکانی نووسینی وانەکان بە ئارەزووی خۆت (٥ وانە، ٦ وانە یان هەرچەندێک بێت) -->
+                <div class="day-inputs">
+                    <div class="day-group">
+                        <label>شەممە (پشوو)</label>
+                        <textarea disabled style="background: rgba(239, 68, 68, 0.1); color: #f87171;">ڕۆژی پشووە</textarea>
+                    </div>
+                    <div class="day-group">
+                        <label>یەکشەممە</label>
+                        <textarea id="sun" placeholder="1. بیرکاری&#10;2. فیزیا&#10;3. کوردی..."></textarea>
+                    </div>
+                    <div class="day-group">
+                        <label>دووشەممە</label>
+                        <textarea id="mon" placeholder="وانەکان بە ڕیز بنووسە..."></textarea>
+                    </div>
+                    <div class="day-group">
+                        <label>سێشەممە</label>
+                        <textarea id="tue" placeholder="وانەکان بە ڕیز بنووسە..."></textarea>
+                    </div>
+                    <div class="day-group">
+                        <label>چوارشەممە</label>
+                        <textarea id="wed" placeholder="وانەکان بە ڕیز بنووسە..."></textarea>
+                    </div>
+                    <div class="day-group">
+                        <label>پێنجشەممە</label>
+                        <textarea id="thu" placeholder="وانەکان بە ڕیز بنووسە..."></textarea>
+                    </div>
+                </div>
+
+                <button class="add-btn" onclick="addWeeklySchedule()">پاشەکەوتکردنی خشتە</button>
+            </div>
+
+            <!-- شوێنی پیشاندانی خشتەکان -->
+            <div id="scheduleContainer">
+                <div class="schedule-card">
+                    <span class="schedule-tag">پۆلی 12 (زانستی) - لقی أ</span>
+                    <button class="delete-btn" onclick="deleteSchedule(this)">سڕینەوە</button>
+                    <div class="schedule-grid">
+                        <div class="day-item">
+                            <h4>شەممە</h4>
+                            <p class="holiday-badge">پشوو</p>
+                        </div>
+                        <div class="day-item">
+                            <h4>یەکشەممە</h4>
+                            <p>1. بیرکاری<br>2. فیزیا<br>3. کوردی<br>4. عەرەبی<br>5. ئینگلیزی</p>
+                        </div>
+                        <div class="day-item">
+                            <h4>دووشەممە</h4>
+                            <p>1. کیمیا<br>2. زیندەوەرزانی<br>3. بیرکاری<br>4. کوردی</p>
+                        </div>
+                        <div class="day-item">
+                            <h4>سێشەممە</h4>
+                            <p>1. ئینگلیزی<br>2. فیزیا<br>3. عەرەبی<br>4. پترۆل<br>5. وەرزش<br>6. بیرکاری</p>
+                        </div>
+                        <div class="day-item">
+                            <h4>چوارشەممە</h4>
+                            <p>1. کوردی<br>2. کیمیا<br>3. بیرکاری<br>4. فیزیا</p>
+                        </div>
+                        <div class="day-item">
+                            <h4>پێنجشەممە</h4>
+                            <p>1. زیندەوەرزانی<br>2. ئینگلیزی<br>3. عەرەبی<br>4. کوردی<br>5. وەرزش</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>مافی پارێزراوە بۆ ئامادەیی بەدرخانی کوران</p>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            let savedSchedules = localStorage.getItem('schoolWeeklyFlexibleSchedules');
+            if (savedSchedules) {
+                document.getElementById('scheduleContainer').innerHTML = savedSchedules;
+            }
+        }
+        function addWeeklySchedule() {
+            let grade = document.getElementById('gradeSelect').value;
+            let section = document.getElementById('sectionSelect').value;
+            
+            let sun = document.getElementById('sun').value;
+            let mon = document.getElementById('mon').value;
+            let tue = document.getElementById('tue').value;
+            let wed = document.getElementById('wed').value;
+            let thu = document.getElementById('thu').value;
+
+            if (!sun && !mon && !tue && !wed && !thu) {
+                alert('تکایە לפەکەم وانەکانی یەکێک لە ڕۆژەکان پڕ بکەرەوە!');
+                return;
+            }
+
+            let container = document.getElementById('scheduleContainer');
+            
+            let newBox = document.createElement('div');
+            newBox.className = 'schedule-card';
+            newBox.innerHTML = `
+                <span class="schedule-tag">${grade} - ${section}</span>
+                <button class="delete-btn" onclick="deleteSchedule(this)">سڕینەوە</button>
+                <div class="schedule-grid">
+                    <div class="day-item">
+                        <h4>شەممە</h4>
+                        <p class="holiday-badge">پشوو</p>
+                    </div>
+                    <div class="day-item">
+                        <h4>یەکشەممە</h4>
+                        <p>${sun ? sun.replace(/\n/g, '<br>') : '---'}</p>
+                    </div>
+                    <div class="day-item">
+                        <h4>دووشەممە</h4>
+                        <p>${mon ? mon.replace(/\n/g, '<br>') : '---'}</p>
+                    </div>
+                    <div class="day-item">
+                        <h4>سێشەممە</h4>
+                        <p>${tue ? tue.replace(/\n/g, '<br>') : '---'}</p>
+                    </div>
+                    <div class="day-item">
+                        <h4>چوارشەممە</h4>
+                        <p>${wed ? wed.replace(/\n/g, '<br>') : '---'}</p>
+                    </div>
+                    <div class="day-item">
+                        <h4>پێنجشەممە</h4>
+                        <p>${thu ? thu.replace(/\n/g, '<br>') : '---'}</p>
+                    </div>
+                </div>
+            `;
+
+            container.prepend(newBox);
+
+            // پاککردنەوەی خانەکان
+            document.getElementById('sun').value = '';
+            document.getElementById('mon').value = '';
+            document.getElementById('tue').value = '';
+            document.getElementById('wed').value = '';
+            document.getElementById('thu').value = '';
+
+            saveToLocalStorage();
+        }
+
+        function deleteSchedule(button) {
+            let card = button.parentElement;
+            card.remove();
+            saveToLocalStorage();
+        }
+
+        function saveToLocalStorage() {
+            let containerHtml = document.getElementById('scheduleContainer').innerHTML;
+            localStorage.setItem('schoolWeeklyFlexibleSchedules', containerHtml);
+        }
+    </script>
+
+</body>
+</html>
